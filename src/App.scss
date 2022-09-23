@@ -1,0 +1,7 @@
+.App {
+  min-height: 100vh;
+  width: var(--wight-content);
+  display: flex;
+  flex-direction: column;
+  padding-top: calc(var(--height-header) + 8px);
+}
