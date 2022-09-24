@@ -33,7 +33,6 @@ const Modal = ({
 
   useEffect(() => {
     const handle = (e) => {
-      console.log(e);
       if (isOpenModal && e.key === "Escape") {
         handleCloseModal();
       }
@@ -58,7 +57,7 @@ const Modal = ({
             <FontAwesomeIcon color="#50525a" fontSize="20px" icon={faXmark} />
           </div>
 
-          <div>{children}</div>
+          <div className={cx("body")}>{children}</div>
         </div>
       </div>
     </Portal>

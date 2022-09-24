@@ -36,6 +36,13 @@
   top: 20px;
   right: 20px;
 }
+.body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 24px;
+}
 
 @keyframes fade-in {
   from {

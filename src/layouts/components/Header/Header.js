@@ -1,20 +1,23 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import "./Header.scss";
-import Portal from "../../../component/Portal/Portal";
 import Login from "../Login/Login";
+import Signup from "../Signup/Signup";
 import logo from "../../../access/image/logo.svg";
 import Modal from "../../../component/Modal/Modal";
 
 const LOGIN_MODAL = "LOGIN_MODAL";
+const SIGNUP_MODAL = "SIGNUP_MODAL";
 
 function Header() {
-  const [isLogin, setIsLogin] = useState(true);
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const UserInfor = useSelector((state) => state.user);
 
-  const handleCloseModal = () => {
-    setIsOpenModal(false);
+  const [isOpenModal, setIsOpenModal] = useState(null);
+
+  const handleCloseModal = (type = null) => {
+    setIsOpenModal(type);
   };
 
   return (
@@ -26,12 +29,18 @@ function Header() {
           </Link>
         </div>
         <div className="login-signin">
-          {isLogin ? (
+          {!UserInfor.isLogin ? (
             <>
-              <button onClick={() => setIsOpenModal(true)} className="login">
+              <button
+                onClick={() => setIsOpenModal(LOGIN_MODAL)}
+                className="login"
+              >
                 <b>Đăng Nhập</b>
               </button>
-              <button onClick={() => setIsOpenModal(true)} className="signin">
+              <button
+                onClick={() => setIsOpenModal(SIGNUP_MODAL)}
+                className="signin"
+              >
                 <b>Đăng Ký</b>
               </button>
             </>
@@ -48,7 +57,11 @@ function Header() {
           isOpenModal={isOpenModal}
           onRequestClose={handleCloseModal}
         >
-          <Login />
+          {isOpenModal === LOGIN_MODAL ? (
+            <Login onR={handleCloseModal} />
+          ) : (
+            <Signup onR={handleCloseModal} />
+          )}
         </Modal>
       </div>
     </>
