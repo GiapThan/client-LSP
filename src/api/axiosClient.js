@@ -1,6 +1,8 @@
 import axios from "axios";
 import queryString from "query-string";
 
+import store from "../redux/store";
+
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
@@ -10,6 +12,11 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.request.use(async (config) => {
+  let accessToken = store.getState().user.accessToken;
+  if (!accessToken) {
+    return config;
+  }
+  config.headers["Authorization"] = accessToken;
   return config;
 });
 

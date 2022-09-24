@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 
 import { setUserInfor } from "../../../redux/userSlice";
 import styles from "../Login/Login.module.scss";
-import userServices from "../../../services/userServices";
+import userApi from "../../../api/userApi";
 
 const cx = classNames.bind(styles);
 
@@ -32,7 +32,7 @@ function Signup({ onR }) {
     if (!password) return setError("Mật khẩu không được bỏ trống");
     if (password !== rePassword) return setError("Mật khẩu không trùng khớp");
 
-    let response = await userServices.userSignUp({ userName, email, password });
+    let response = await userApi.userSignUp({ userName, email, password });
     if (response && response.email) {
       dispatch(setUserInfor({ ...response, isLogin: true }));
       setUserName("");

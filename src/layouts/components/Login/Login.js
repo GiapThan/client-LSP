@@ -11,7 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { setUserInfor } from "../../../redux/userSlice";
 import styles from "./Login.module.scss";
-import userServices from "../../../services/userServices";
+import userApi from "../../../api/userApi";
 
 const cx = classNames.bind(styles);
 
@@ -35,7 +35,7 @@ function Login({ onR }) {
     }
 
     try {
-      let res = await userServices.userLogin({
+      let res = await userApi.userLogin({
         email,
         password,
       });
