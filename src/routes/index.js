@@ -1,5 +1,9 @@
 const publicRoutes = {
-  home: "/home",
+  examCreate: "/exam/create",
+  examEdit: "exam/edit",
+  examDo: "exam/do",
+
+  home: "/",
   todo: "/todo",
   login: "/login",
 };

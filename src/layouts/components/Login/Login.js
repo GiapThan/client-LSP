@@ -7,7 +7,7 @@ import {
   faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { setUserInfor } from "../../../redux/userSlice";
 import styles from "./Login.module.scss";

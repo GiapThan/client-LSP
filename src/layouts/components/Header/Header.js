@@ -1,9 +1,13 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import classNames from "classnames/bind";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
+import { publicRoutes } from "../../../routes/index";
 import styles from "./Header.module.scss";
+import "./Header.scss";
 import Login from "../Login/Login";
 import Signup from "../Signup/Signup";
 import logo from "../../../access/image/lo.jpg";
@@ -27,13 +31,27 @@ function Header() {
     <>
       <div className={cx("header")}>
         <div className={cx("logo")}>
-          <Link to="/">
+          <Link to={publicRoutes.home}>
             <img className={cx("logo-item")} src={logo} alt="logo" />
           </Link>
         </div>
-        <div className={cx("login-signin")}>
+        <div className={cx("option")}>
           {!UserInfor.isLogin ? (
+            <></>
+          ) : (
             <>
+              <NavLink to={publicRoutes.examCreate} className={cx("exam-btn")}>
+                <FontAwesomeIcon icon={faPlus} />
+                Tạo bài
+              </NavLink>
+              <NavLink to={publicRoutes.examEdit} className={cx("exam-btn")}>
+                <FontAwesomeIcon icon={faPenToSquare} />
+                Sửa bài
+              </NavLink>
+            </>
+          )}
+          {!UserInfor.isLogin ? (
+            <div className={cx("login-signin")}>
               <button
                 onClick={() => setIsOpenModal(LOGIN_MODAL)}
                 className={cx("login")}
@@ -46,15 +64,15 @@ function Header() {
               >
                 <b>Đăng Ký</b>
               </button>
-            </>
+            </div>
           ) : (
-            <>
-              <div className={cx("avatar")}>
-                <label>GT</label>
-              </div>
-            </>
+            <div className={cx("avatar-wrapper")}>
+              <div className={cx("avatar")}></div>
+              <p className={cx("name")}>{UserInfor.userName}</p>
+            </div>
           )}
         </div>
+
         <Modal
           containerId="Modal-Form-Login"
           isOpenModal={isOpenModal}

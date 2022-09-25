@@ -1,8 +1,7 @@
 .header {
   height: var(--height-header);
   width: 100%;
-  margin: 8px -1px;
-  margin-bottom: 0;
+  margin: 0px -1px;
   padding: 8px calc(50vw - var(--wight-content) / 2);
 
   display: flex;
@@ -39,13 +38,20 @@
   height: 100%;
 }
 
+.option {
+  display: flex;
+  height: 100%;
+  margin: 2px 8px;
+  align-items: center;
+}
+
 .login-signin {
   height: initial;
   width: initial;
   display: flex;
   margin: 6px 8px;
-  padding: 2px 8px;
   border: 1px solid blue;
+  position: relative;
 }
 
 .login {
@@ -79,19 +85,56 @@
   background-color: #fff3f5;
 }
 
-.avatar {
+.avatar-wrapper {
+  position: relative;
+  /* border-radius: 50%; */
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: rgb(49, 143, 138);
-  align-items: center;
-  justify-content: center;
-  padding: auto;
-  margin-right: 12px;
+  background-color: #d3d1ce;
+  background-image: url("../../../access/image/avatar1.png");
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
 }
 
-.avatar label {
-  font-weight: 500;
-  font-size: 24px;
+.name {
+  color: red;
+  font-size: 14px;
+  margin: 0px 0 0 0;
+}
+
+.exam-btn {
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  color: #aaa;
+  padding: 8px;
+  margin-right: 10px;
+  width: 100px;
+  height: fit-content;
+  cursor: pointer;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.exam-btn svg {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.exam-btn:hover {
+  background: linear-gradient(to right, #ff7e3f, #ffba3f);
+  color: #fff;
+  border: none;
 }
