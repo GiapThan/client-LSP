@@ -50,7 +50,6 @@
   width: initial;
   display: flex;
   margin: 6px 8px;
-  border: 1px solid blue;
   position: relative;
 }
 
@@ -60,13 +59,13 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  background-color: rgba(254, 44, 85, 1);
+  background: linear-gradient(to right, #fe2c55, #fe742c);
   color: #fffff4;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
 }
 
 .login:hover {
-  background-color: #e5284d;
+  background: linear-gradient(to right, #fe742c, #fe2c55);
 }
 
 .signin {
@@ -78,11 +77,13 @@
   cursor: pointer;
   color: #fe2c55;
   margin-left: 12px;
-  transition: all 0.3s;
+  background: linear-gradient(to right, #fff3fc, #f8d5db);
+
+  transition: all ease 0.3s;
 }
 
 .signin:hover {
-  background-color: #fff3f5;
+  background: linear-gradient(to right, #f8d5db, #fff3fc);
 }
 
 .avatar-wrapper {
@@ -132,7 +133,11 @@
   font-size: 16px;
   margin-right: 10px;
 }
-
+.active {
+  background: linear-gradient(to right, #ff7e3f, #ffba3f);
+  color: #fff;
+  border: none;
+}
 .exam-btn:hover {
   background: linear-gradient(to right, #ff7e3f, #ffba3f);
   color: #fff;

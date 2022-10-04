@@ -4,7 +4,9 @@ import {
   faEnvelope,
   faLock,
   faEye,
+  faSpinner,
   faEyeSlash,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
 import { useDispatch } from "react-redux";
@@ -15,7 +17,7 @@ import userApi from "../../../api/userApi";
 
 const cx = classNames.bind(styles);
 
-function Signup({ onR }) {
+function Signup({ onChangeTypeModal }) {
   const dispatch = useDispatch();
 
   const [userName, setUserName] = useState();
@@ -24,6 +26,7 @@ function Signup({ onR }) {
   const [rePassword, setRePassword] = useState();
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
     if (!userName) return setError("Chưa nhập họ và tên");
@@ -32,15 +35,24 @@ function Signup({ onR }) {
     if (!password) return setError("Mật khẩu không được bỏ trống");
     if (password !== rePassword) return setError("Mật khẩu không trùng khớp");
 
-    let response = await userApi.userSignUp({ userName, email, password });
-    if (response && response.email) {
-      dispatch(setUserInfor({ ...response, isLogin: true }));
-      setUserName("");
-      setEmail("");
-      setPassword("");
-      setRePassword("");
-    } else {
-      return setError("Email đã tồn tại");
+    setIsLoading(true);
+    try {
+      let response = await userApi.userSignUp({ userName, email, password });
+      if (response && response.email) {
+        dispatch(setUserInfor({ ...response, isLogin: true }));
+        setUserName("");
+        setEmail("");
+        setPassword("");
+        setRePassword("");
+        setIsLoading(false);
+      } else {
+        setError("Email đã tồn tại");
+        setIsLoading(false);
+        return;
+      }
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
     }
   };
 
@@ -48,7 +60,7 @@ function Signup({ onR }) {
     <div className={cx("form-input")}>
       <div className={cx("title")}>Đăng Ký</div>
       <div className={cx("form-control")}>
-        <FontAwesomeIcon className={cx("befor-icon")} icon={faEnvelope} />
+        <FontAwesomeIcon className={cx("befor-icon")} icon={faUser} />
         <input
           placeholder="Họ và tên"
           autoComplete="on"
@@ -106,13 +118,16 @@ function Signup({ onR }) {
       </div>
       <div className={cx("show-error")}>{error}</div>
       <button className={cx("submit-btn")} onClick={handleSubmit}>
+        {isLoading ? (
+          <FontAwesomeIcon className={cx("icon-loading")} icon={faSpinner} />
+        ) : null}
         Đăng Ký
       </button>
       <div className={cx("option")}>
         <span>Quên mật khẩu</span>
         <span
           onClick={() => {
-            onR("LOGIN_MODAL");
+            onChangeTypeModal("LOGIN_MODAL");
           }}
         >
           Đã có tài khoản

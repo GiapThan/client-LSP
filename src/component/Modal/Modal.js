@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+
 import Portal from "../Portal/Portal";
 import styles from "./Modal.module.scss";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -37,7 +38,9 @@ const Modal = ({
         handleCloseModal();
       }
     };
+
     document.addEventListener("keydown", handle);
+
     return () => document.removeEventListener("keydown", handle);
   }, [isOpenModal, handleCloseModal]);
 

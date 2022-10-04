@@ -14,7 +14,7 @@ function ExamEdit() {
     if (!UserInfor.isLogin) {
       navigator("/");
     }
-  }, []);
+  }, [UserInfor.isLogin, navigator]);
   return (
     <div className={cx("wrapper")}>
       <div className={cx("title")}>

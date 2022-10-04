@@ -4,10 +4,10 @@ import { useSelector } from "react-redux";
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import Tippy from "@tippyjs/react/headless";
 
 import { publicRoutes } from "../../../routes/index";
 import styles from "./Header.module.scss";
-import "./Header.scss";
 import Login from "../Login/Login";
 import Signup from "../Signup/Signup";
 import logo from "../../../access/image/lo.jpg";
@@ -20,7 +20,6 @@ const cx = classNames.bind(styles);
 
 function Header() {
   const UserInfor = useSelector((state) => state.user);
-
   const [isOpenModal, setIsOpenModal] = useState(null);
 
   const handleCloseModal = (type = null) => {
@@ -35,16 +34,27 @@ function Header() {
             <img className={cx("logo-item")} src={logo} alt="logo" />
           </Link>
         </div>
+
         <div className={cx("option")}>
           {!UserInfor.isLogin ? (
             <></>
           ) : (
             <>
-              <NavLink to={publicRoutes.examCreate} className={cx("exam-btn")}>
+              <NavLink
+                to={publicRoutes.examCreate}
+                className={({ isActive }) => {
+                  return isActive ? cx("exam-btn", "active") : cx("exam-btn");
+                }}
+              >
                 <FontAwesomeIcon icon={faPlus} />
                 Tạo bài
               </NavLink>
-              <NavLink to={publicRoutes.examEdit} className={cx("exam-btn")}>
+              <NavLink
+                to={publicRoutes.examEdit}
+                className={({ isActive }) => {
+                  return isActive ? cx("exam-btn", "active") : cx("exam-btn");
+                }}
+              >
                 <FontAwesomeIcon icon={faPenToSquare} />
                 Sửa bài
               </NavLink>
@@ -67,8 +77,17 @@ function Header() {
             </div>
           ) : (
             <div className={cx("avatar-wrapper")}>
-              <div className={cx("avatar")}></div>
-              <p className={cx("name")}>{UserInfor.userName}</p>
+              <Tippy
+                interactive
+                render={(attrs) => (
+                  <div {...attrs}>hello</div>
+                )}
+              >
+                <>
+                  <div className={cx("avatar")}></div>
+                  <p className={cx("name")}>{UserInfor.userName}</p>
+                </>
+              </Tippy>
             </div>
           )}
         </div>
@@ -79,9 +98,9 @@ function Header() {
           onRequestClose={handleCloseModal}
         >
           {isOpenModal === LOGIN_MODAL ? (
-            <Login onR={handleCloseModal} />
+            <Login onChangeTypeModal={handleCloseModal} />
           ) : (
-            <Signup onR={handleCloseModal} />
+            <Signup onChangeTypeModal={handleCloseModal} />
           )}
         </Modal>
       </div>

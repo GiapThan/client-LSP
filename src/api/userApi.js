@@ -14,13 +14,7 @@ const userLogin = async ({ email, password }) => {
       }
     );
     if (res && res.errCode === 0) {
-      return {
-        email,
-        userName: res.data.userName,
-        type: res.data.type,
-        accessToken: res.accessToken,
-        roleId: res.data.roleId,
-      };
+      return res.data;
     }
     return {};
   } catch (error) {
@@ -40,13 +34,7 @@ const userSignUp = async ({ userName, email, password }) => {
       { withCredentials: true }
     );
     if (res && res.errCode === 0) {
-      return {
-        email,
-        userName: res.data.userName,
-        type: res.data.type,
-        accessToken: res.accessToken,
-        roleId: res.data.roleId,
-      };
+      return res.data;
     }
     return {};
   } catch (err) {

@@ -5,6 +5,7 @@ import {
   faLock,
   faEye,
   faEyeSlash,
+  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
 import { useDispatch } from "react-redux";
@@ -15,13 +16,14 @@ import userApi from "../../../api/userApi";
 
 const cx = classNames.bind(styles);
 
-function Login({ onR }) {
+function Login({ onChangeTypeModal }) {
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
     if (!email) {
@@ -34,6 +36,7 @@ function Login({ onR }) {
       return setError("Mật khẩu không được bỏ trống");
     }
 
+    setIsLoading(true);
     try {
       let res = await userApi.userLogin({
         email,
@@ -45,10 +48,14 @@ function Login({ onR }) {
         dispatch(action);
         setEmail("");
         setPassword("");
+        setIsLoading(false);
       } else {
         setError("Đăng nhập thất bại. Kiểm tra lại thông tin");
+        setIsLoading(false);
+        return;
       }
     } catch (error) {
+      setIsLoading(false);
       console.log(error);
     }
   };
@@ -89,13 +96,16 @@ function Login({ onR }) {
       </div>
       <div className={cx("show-error")}>{error}</div>
       <button className={cx("submit-btn")} onClick={handleSubmit}>
+        {isLoading ? (
+          <FontAwesomeIcon className={cx("icon-loading")} icon={faSpinner} />
+        ) : null}
         Đăng Nhập
       </button>
       <div className={cx("option")}>
         <span>Quên mật khẩu</span>
         <span
           onClick={() => {
-            onR("SIGNUP_MODAL");
+            onChangeTypeModal("SIGNUP_MODAL");
           }}
         >
           Chưa có tài khoản

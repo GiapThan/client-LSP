@@ -20,7 +20,7 @@ function ExamCreate() {
     if (!UserInfor.isLogin) {
       Navigator("/");
     }
-  }, []);
+  }, [Navigator, UserInfor.isLogin]);
 
   console.log(nameExam);
   console.log(+countExam);
