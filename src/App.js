@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path={publicRoutes.examCreate} element={<ExamCreate />} />
         <Route path={publicRoutes.examEdit} element={<ExamEdit />} />
-        <Route path={publicRoutes.home} element={<div>home page</div>} />
+        <Route path={publicRoutes.home} element={<div>home page demo</div>} />
       </Routes>
     </div>
   );
