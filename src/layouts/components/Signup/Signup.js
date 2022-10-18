@@ -1,17 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
   faLock,
   faEye,
-  faSpinner,
   faEyeSlash,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
 import { useDispatch } from "react-redux";
 
+import Loading from "../../../component/Loading/Loading";
 import { setUserInfor } from "../../../redux/userSlice";
+import { CloseModal } from "../../../redux/systemSlice";
 import styles from "../Login/Login.module.scss";
 import userApi from "../../../api/userApi";
 
@@ -28,6 +29,19 @@ function Signup({ onChangeTypeModal }) {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    const RefreshToken = async () => {
+      try {
+        let data = await userApi.RefreshToken();
+        if (data) {
+          dispatch(setUserInfor({ ...data, isLogin: true }));
+          dispatch(CloseModal());
+        }
+      } catch (error) {}
+    };
+    RefreshToken();
+  }, [dispatch]);
+
   const handleSubmit = async () => {
     if (!userName) return setError("Chưa nhập họ và tên");
     if (!email) return setError("Chưa nhập email");
@@ -39,11 +53,15 @@ function Signup({ onChangeTypeModal }) {
     try {
       let response = await userApi.userSignUp({ userName, email, password });
       if (response && response.email) {
-        dispatch(setUserInfor({ ...response, isLogin: true }));
         setUserName("");
         setEmail("");
         setPassword("");
         setRePassword("");
+        setIsLoading(false);
+        dispatch(setUserInfor({ ...response, isLogin: true }));
+        dispatch(CloseModal());
+      } else if (response.errCode === -100) {
+        setError("Đã có lỗi xảy ra, vui lòng thử lại");
         setIsLoading(false);
       } else {
         setError("Email đã tồn tại");
@@ -118,9 +136,7 @@ function Signup({ onChangeTypeModal }) {
       </div>
       <div className={cx("show-error")}>{error}</div>
       <button className={cx("submit-btn")} onClick={handleSubmit}>
-        {isLoading ? (
-          <FontAwesomeIcon className={cx("icon-loading")} icon={faSpinner} />
-        ) : null}
+        {isLoading ? <Loading /> : null}
         Đăng Ký
       </button>
       <div className={cx("option")}>

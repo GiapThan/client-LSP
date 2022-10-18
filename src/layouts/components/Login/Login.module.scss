@@ -65,11 +65,6 @@
   background-color: #e5284d;
 }
 
-.icon-loading {
-  animation: spinner infinite linear 0.6s;
-  margin-right: 8px;
-}
-
 .show-password {
   position: absolute;
   right: 10px;
@@ -103,13 +98,4 @@
 .option span:hover {
   text-decoration: underline;
   opacity: 1;
-}
-
-@keyframes spinner {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

@@ -4,6 +4,7 @@ const user = createSlice({
   name: "user",
   initialState: {
     isLogin: false,
+    idUser: "",
     userName: "",
     email: "",
     type: "",
@@ -13,9 +14,19 @@ const user = createSlice({
     setUserInfor: (state, action) => {
       return { ...state, ...action.payload };
     },
+    deleteUserInfor: (state, action) => {
+      return {
+        isLogin: false,
+        idUser: "",
+        userName: "",
+        email: "",
+        type: "",
+        accessToken: "",
+      };
+    },
   },
 });
 
 const { reducer, actions } = user;
-export const { setUserInfor } = actions;
+export const { setUserInfor, deleteUserInfor } = actions;
 export default reducer;

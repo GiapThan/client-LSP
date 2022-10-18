@@ -30,21 +30,18 @@
   top: 0;
   left: 0;
 }
-
 .logo-item {
   cursor: pointer;
   transform: scale(1);
   width: 100%;
   height: 100%;
 }
-
 .option {
   display: flex;
   height: 100%;
   margin: 2px 8px;
   align-items: center;
 }
-
 .login-signin {
   height: initial;
   width: initial;
@@ -52,7 +49,6 @@
   margin: 6px 8px;
   position: relative;
 }
-
 .login {
   font-size: 14px;
   padding: 16px;
@@ -63,11 +59,9 @@
   color: #fffff4;
   transition: all 0.3s ease;
 }
-
 .login:hover {
   background: linear-gradient(to right, #fe742c, #fe2c55);
 }
-
 .signin {
   font-size: 14px;
   padding: 16px;
@@ -81,19 +75,15 @@
 
   transition: all ease 0.3s;
 }
-
 .signin:hover {
   background: linear-gradient(to right, #f8d5db, #fff3fc);
 }
-
 .avatar-wrapper {
   position: relative;
-  /* border-radius: 50%; */
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
 .avatar {
   width: 50px;
   height: 50px;
@@ -104,13 +94,11 @@
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover;
 }
-
 .name {
   color: red;
   font-size: 14px;
   margin: 0px 0 0 0;
 }
-
 .exam-btn {
   text-decoration: none;
   font-size: 16px;
@@ -128,7 +116,6 @@
   display: flex;
   align-items: center;
 }
-
 .exam-btn svg {
   font-size: 16px;
   margin-right: 10px;
@@ -142,4 +129,32 @@
   background: linear-gradient(to right, #ff7e3f, #ffba3f);
   color: #fff;
   border: none;
+}
+.user-option {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+}
+.user-option span {
+  width: 100%;
+  padding: 6px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  font-size: 16px;
+  color: black;
+  font-weight: 500;
+  transition: all ease 0.25s;
+  a {
+    text-decoration: none;
+    color: black;
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: #ffa73f;
+    color: #fff;
+  }
 }
